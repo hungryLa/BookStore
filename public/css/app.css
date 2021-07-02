@@ -1,0 +1,28 @@
+div#borderBody{
+    background-color: ghostwhite;
+}
+
+header{
+    background-color: black;
+}
+
+.asside{
+
+}
+
+header a{
+    color:grey;
+}
+
+ul.grid{
+    display: grid;
+    text-align: center;
+    grid-template-rows: 1fr;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit,minmax(40px,1fr));
+    grid-gap: 2vw;
+}
+
+ul.grid li{
+    border: 0px solid;
+}
