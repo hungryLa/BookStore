@@ -6,8 +6,8 @@
             {{ $book->author->FName }} {{ $book->author->SName }}
         </p>
         @if(Request::is('editDB'))
-            <a href="{{route('editDB.change',['id' => $book->id])}}" class="btn btn-warning">Изменить</a>
-            <a href="{{route('editDB.delete',['id' => $book->id])}}" class="btn btn-danger">Удалить</a>
+            <a href="{{route('book.change',['id' => $book->id])}}" class="btn btn-warning">Изменить</a>
+            <a href="{{route('book.delete',['id' => $book->id])}}" class="btn btn-danger">Удалить</a>
         @else
             <form action="{{route('basket-add',$book->id)}}" method="post">
                 @csrf

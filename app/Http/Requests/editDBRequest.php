@@ -24,18 +24,21 @@ class editDBRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'author' => 'required',
-            'pubHouse' => 'required'
+            'name' => 'required|string',
+            'author' => 'gt:0',
+            'genres' => 'required',
+            'pubHouse' => 'required|min:2',
+            'price' => 'required|int',
+            'image' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Вы не указали название книги',
-            'author.required' => 'Вы не указали автора',
-            'pubHouse.required' => 'Вы не указали издателя'
+            'author.gt' => 'Вы не выбрали автора',
+            'genres.required' => 'Выберите хотя бы один жанр',
+            'image.required' => 'Вы не выбрали обложку',
         ];
     }
 }

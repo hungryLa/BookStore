@@ -10,7 +10,8 @@
             <input type="hidden" name ="id" value ="{{$book->id}}">
             <div class="form-group">
                 <label for="name">Название книги:</label>
-                <input type="text" name="name" placeholder="Введите название книги" value ="{{$book->name}}" id="name" class="form-control">
+                <input type="text" name="name" placeholder="Введите название книги" value ="{{$book->name}}"
+                       id="name" class="form-control">
             </div>
             <div class="form-group">
                 <label for="author">Выберите автора книги:</label><br>
@@ -28,19 +29,29 @@
                 <label for="genre">Введите жанр книги:</label>
                 @foreach($genres as $genre)
                         @if($book->genres->find($genre->id))
-                            <div class = "row"><div class="col-sm"><input type="checkbox" checked name="genres[]" value="{{$genre->id}}"> {{$genre->name}}</div></div>
+                            <div class = "row">
+                                <div class="col-sm">
+                                    <input type="checkbox" checked name="genres[]" value="{{$genre->id}}"> {{$genre->name}}
+                                </div>
+                            </div>
                         @else
-                            <div class = "row"><div class="col-sm"><input type="checkbox" name="genres[]" value="{{$genre->id}}"> {{$genre->name}}</div></div>
+                            <div class = "row">
+                                <div class="col-sm">
+                                    <input type="checkbox" name="genres[]" value="{{$genre->id}}"> {{$genre->name}}
+                                </div>
+                            </div>
                         @endif
                 @endforeach
             </div>
             <div class="form-group">
                 <label for="pubHouse">Издательство книги:</label>
-                <input type="text" name="pubHouse" placeholder="Введите название книги" value ="{{$book->pubHouse}}" id="pubHouse" class="form-control">
+                <input type="text" name="pubHouse" placeholder="Введите название книги" value="{{$book->pubHouse}}"
+                       id="pubHouse" class="form-control">
             </div>
             <div class="form-group">
                 <label for="pubHouse">Цена книги:</label>
-                <input type="text" name="price" placeholder="Введите цену" value ="{{$book->price}}" id="price" class="form-control">
+                <input type="text" name="price" placeholder="Введите цену" value ="{{$book->price}}"
+                       id="price" class="form-control">
             </div>
             <div class="form-group">
                 <input type="file" class = "form-control-file" id = "image" name = "image" value="Выберите обложку"><br>

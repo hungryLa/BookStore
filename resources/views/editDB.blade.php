@@ -18,6 +18,7 @@
                     @foreach($authors as $author)
                         <option value="{{$author->id}}">{{$author->FName}} {{$author->SName}}</option>
                     @endforeach
+                    <option value="255">Моего автора нету(</option>
                 </select>
             </div>
             <div class="form-group container">
@@ -40,11 +41,11 @@
     </div>
     <div class="mx-auto border p-3 m-3">
         <div class="row">
-        @foreach($books as $book)
+            @foreach($books as $book)
                 <div class="col-3 mb-4" style="border:0px solid ">
-                @include('layouts.book',['book' => $book])
+                    @include('layouts.book',['book' => $book])
                 </div>
-        @endforeach
+            @endforeach
         </div>
     </div>
 

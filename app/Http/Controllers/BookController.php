@@ -42,28 +42,15 @@ class BookController extends Controller
         return view('editDB', ['books' => $books, 'genres' => $genres, 'authors' => $authors]);
     }
 
-    public function create(editDBRequest $req): \Illuminate\Http\RedirectResponse
-    {
-        $book = new book;
-        $book->name = $req->input('name');
-        $book->author = $req->input('author');
-        $book->genre = $req->input('genre');
-        $book->pubHouse = $req->input('pubHouse');
-        $book->image = $req->input('image');
-
-        $book->save();
-
-        return redirect()->route('editDB')->with('success', 'Книга добавлена');
-    }
-
     public function book($IdBook){
         $book = Book::find($IdBook);
         //dd($book->genres);
         return view('oneBook',['book'=>$book]);
     }
 
-    public function store(Request $request)
+    public function store(editDBRequest $request)
     {
+        dd($request->post());
         // Загрузка изображения на сервер
         //dd($request->price);
         $request->file('image')->store('public/');

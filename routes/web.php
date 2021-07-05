@@ -24,13 +24,24 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
 //УПРАВЛЕНИЕ БАЗОЙ ДАННЫХ
-Route::group(['prefix' => 'editDB','middleware' => ['auth','is_admin']],function (){
+Route::group(['prefix' => 'editDB','middleware' => 'auth'],function (){
     Route::get('', [BookController::class, 'edit'])->name('editDB');
-    Route::get('/{id}/delete', [BookController::class, 'deleteBook'])->name('editDB.delete');
-    Route::get('/{id}/change', [BookController::class, 'changeBook'])->name('editDB.change');
-    Route::post('/{id}/update', [BookController::class, 'updateBook'])->name('editDB.update');
     Route::post('/submit', [BookController::class, 'store'])->name('editDB.store');
-    Route::post('/submit/{id}', [BookController::class, 'create'])->name('editDB.create');
+});
+
+//АДМИНКА
+Route::group(['prefix' => 'admin','middleware' => ['auth','is_admin']],function(){
+
+    //КНИГИ
+    Route::group(['prefix' => 'book'],function (){
+        Route::get('/{id}/delete', [BookController::class, 'deleteBook'])
+            ->name('book.delete');
+        Route::get('/{id}/change', [BookController::class, 'changeBook'])
+            ->name('book.change');
+        Route::post('/{id}/update', [BookController::class, 'updateBook'])
+            ->name('book.update');
+    });
+
 });
 
 //МАРШРУТЫ КОРЗИНЫ
