@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'SName',
+        'FName',
+    ];
 // Отношение один ко многим
     public function books()
     {
