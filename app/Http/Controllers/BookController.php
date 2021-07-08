@@ -16,10 +16,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::where('price','>',0)->orderBy('created_at','desc')->get();
-        $genres = Genre::orderBy('name')->get();
-        //dd(session());
-        return view('home', ['books' => $books, 'genres' => $genres]);
+        return 'fddl';
     }
 
     public function category($code)

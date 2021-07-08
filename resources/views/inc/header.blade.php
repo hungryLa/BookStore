@@ -11,10 +11,14 @@ if(auth()->user()){
                 <li class="nav-item active">
                     @if(auth()->user())
                         <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-secondary dropdown-toggle" href="#"
+                               role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{$nameOfUser}}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                @if(auth()->user()->is_admin == 1)
+                                    <li><a class="dropdown-item" href="{{route('adminMain')}}">Админка</a></li>
+                                @endif
                                 <li><a class="dropdown-item" href="{{route('logout')}}">Выйти</a></li>
                             </ul>
                         </div>

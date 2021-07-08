@@ -13,6 +13,7 @@ class Book extends Model
         'name',
         'author_id',
         'pubHouse',
+        'visible',
         'image',
         'price',
     ];

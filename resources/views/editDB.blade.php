@@ -36,17 +36,9 @@
                 <input type="text" name="price" placeholder="Введите цену" id="price" class="form-control">
             </div>
             <input type="file" class = "form-control-file" id = "image" name = "image" value="Выберите обложку"><br>
-            <button type = "submit" class = "btn btn-success">Добавить</button>
+            <button type = "submit" class = "btn btn-success">Отправить заявку</button>
         </form>
     </div>
-    <div class="mx-auto border p-3 m-3">
-        <div class="row">
-            @foreach($books as $book)
-                <div class="col-3 mb-4" style="border:0px solid ">
-                    @include('layouts.book',['book' => $book])
-                </div>
-            @endforeach
-        </div>
-    </div>
+
 
 @endsection
