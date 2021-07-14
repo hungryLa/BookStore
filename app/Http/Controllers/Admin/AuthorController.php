@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Http\Requests\authorRequest;
 
 class AuthorController extends Controller
 {
@@ -20,7 +21,7 @@ class AuthorController extends Controller
         return view('admin.authors.form',compact('author'));
     }
 
-    public function add(Request $request)
+    public function add(authorRequest $request)
     {
         $author = Author::create([
             'FName' => $request->FName,

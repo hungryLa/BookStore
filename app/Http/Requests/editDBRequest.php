@@ -16,6 +16,15 @@ class editDBRequest extends FormRequest
         return true;
     }
 
+    public function attributes()
+    {
+        return [
+            'pubHouse' => 'Издательство книги',
+            'name' => 'Название книги',
+            'price' => 'Цена',
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,10 +33,11 @@ class editDBRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'author' => 'gt:0',
-            'genres' => 'required',
             'pubHouse' => 'required|min:2',
+            'author' => 'gt:0',
+            'name' => 'required|string',
+            'visible' => 'between:0,1',
+            'genres' => 'required',
             'price' => 'required|int',
             'image' => 'required',
         ];
@@ -37,6 +47,7 @@ class editDBRequest extends FormRequest
     {
         return [
             'author.gt' => 'Вы не выбрали автора',
+            'visible.between' => 'Вы не выбрали видимость',
             'genres.required' => 'Выберите хотя бы один жанр',
             'image.required' => 'Вы не выбрали обложку',
         ];

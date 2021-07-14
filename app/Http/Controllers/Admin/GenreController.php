@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use App\Http\Requests\GenreRequest;
 
 class GenreController extends Controller
 {
@@ -21,7 +22,7 @@ class GenreController extends Controller
         return view('admin.genres.form',compact('genre'));
     }
 
-    public function add(Request $request)
+    public function add(GenreRequest $request)
     {
         $genre = Genre::create([
             'name' => $request->name,
