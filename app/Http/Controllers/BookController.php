@@ -26,11 +26,6 @@ class BookController extends Controller
         return view('genre', ['genre' => $genre, 'genres' => $genres]);
     }
 
-    public function show()
-    {
-        dd('genre');
-    }
-
     public function edit()
     {
         $authors = Author::all()->sortBy('FName');
@@ -43,113 +38,5 @@ class BookController extends Controller
         $book = Book::find($IdBook);
         //dd($book->genres);
         return view('oneBook',['book'=>$book]);
-    }
-
-    public function store(editDBRequest $request)
-    {
-        dd($request->post());
-        // Загрузка изображения на сервер
-        //dd($request->price);
-        $request->file('image')->store('public/');
-        $nameFile = $request->file('image')->hashName();
-
-        //Создание записи
-        $book = Book::create
-        ([
-            'name' => $request->name,
-            'author_id' => $request->author,
-            'pubHouse' => $request->pubHouse,
-            'price' => $request->price,
-            'image' => $nameFile,
-        ]);
-
-        //Добавление жанров
-        $genres = $request->genres;
-        if (!is_null($genres)) {
-            foreach ($genres as $genre){
-                $book->genres()->attach($genre);
-            }
-        }
-
-        if($book){
-            session()->flash('success','Книга была добавлена!');
-        }else{
-            session()->flash('warning','Возникли какие-то проблемы!');
-        }
-
-        return redirect()->route('editDB');
-    }
-
-    // Удаление обложки книги
-    public function deleteCover($IdBook)
-    {
-        $book = Book::find($IdBook);
-        if ($book->image) {
-            $file_path = public_path() . "/storage/" . $book->image;
-            unlink($file_path);
-        }
-        $book->image = NULL;
-        $book->save();
-    }
-
-    public function deleteBook($IdBook): \Illuminate\Http\RedirectResponse
-    {
-        $this->deleteCover($IdBook);
-        Book::find($IdBook)->delete();
-        return redirect()->to(route('editDB'));
-    }
-
-    public function changeBook($IdBook)
-    {
-        $book = Book::find($IdBook);
-        $authors = Author::all();
-        $genres = Genre::all();
-
-        return view('editBook',
-            ['book' => $book, 'authors' => $authors, 'genres' => $genres]);
-    }
-
-    public function updateBook(Request $req): \Illuminate\Http\RedirectResponse
-    {
-        $book = Book::find($req->id);
-        // Изменение информации
-        if ($req->change == 1) {
-            $book->name = $req->name;
-            $book->author_id = $req->author_id;
-            $book->pubHouse = $req->pubHouse;
-            $book->price = $req->price;
-            //Отсоединияем все записи
-            $book->genres()->detach();
-
-            $genres = $req->genres;
-            foreach ($genres as $genre){
-                $book->genres()->attach($genre);
-            }
-        }
-        // Изменение обложки
-        if ($req->change == 2) {
-            //Удаляем старую обложку
-            if($req->file('image')){
-                $this->deleteCover($book->id);
-                //Сохраняем новую
-                $req->file('image')->store('public/');
-                $nameFile = $req->file('image')->hashName();
-                //Изменяем имя файла в записи книги
-                $book->image = $nameFile;
-            }
-        }
-        $success = $book->save();
-        if($success){
-            session()->flash('success','Книга была изменена!');
-        }
-        else{
-            session()->flash('warning','Что-то пошло не так!');
-        }
-        return redirect()->to(route('editDB'));
-    }
-
-    public function allBooks()
-    {
-        return view('editDB', ['books' => book::all()]);
     }
 }

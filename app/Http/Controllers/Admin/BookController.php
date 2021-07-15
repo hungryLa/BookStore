@@ -11,13 +11,11 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+
     public function index()
     {
-
         $books = Book::orderBy('pubHouse')->orderBy('author_id')->orderBy('name')->get();
         $genres = Genre::orderBy('name')->get();
-        //dd(session());
-        //return view('book.index',compact('books','genres'));
         return view('admin.books.index',compact('books','genres'));
     }
 
@@ -32,7 +30,7 @@ class BookController extends Controller
     public function addBook(editDBRequest $request)
     {
         // Загрузка изображения на сервер
-        $request->file('image')->store('public/');
+        $request->file('image')->store('public/books/');
         $nameFile = $request->file('image')->hashName();
 
         //Создание записи
@@ -99,7 +97,7 @@ class BookController extends Controller
             if($req->file('image')){
                 $this->deleteCover($book->id);
                 //Сохраняем новую
-                $req->file('image')->store('public/');
+                $req->file('image')->store('public/books/');
                 $nameFile = $req->file('image')->hashName();
                 //Изменяем имя файла в записи книги
                 $book->image = $nameFile;
@@ -119,11 +117,11 @@ class BookController extends Controller
     public function deleteCover($IdBook)
     {
         $book = Book::find($IdBook);
-        if ($book->image) {
-            $file_path = public_path() . "/storage/" . $book->image;
+        if ($book->image != '') {
+            $file_path = public_path() . "/storage/books/" . $book->image;
             unlink($file_path);
         }
-        $book->image = NULL;
+        $book->image = '';
         $book->save();
     }
     // Скрипт удалении книги

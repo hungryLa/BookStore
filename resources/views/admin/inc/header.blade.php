@@ -5,5 +5,6 @@
         <li class="nav-item"><a href="{{route('genre.index')}}" class="nav-link">Жанры</a></li>
         <li class="nav-item"><a href="{{route('author.index')}}" class="nav-link">Авторы</a></li>
         <li class="nav-item"><a href="{{route('home')}}" class="nav-link">Сайт</a></li>
+        <li class="nav-item"><a href="{{route('reset')}}" class="nav-link">Сбросить сайт</a></li>
     </ul>
 </header>

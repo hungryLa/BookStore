@@ -1,5 +1,5 @@
 <div class="card h-100">
-    <a href="{{route('book',['id' => $book->id])}}"><img class = "card-img-top" style="min-height: 390px;max-height: 390px;height:100%" src="{{asset('storage/'.$book->image)}}" alt="Обложка"></a>
+    <a href="{{route('book',['id' => $book->id])}}"><img class = "card-img-top" style="min-height: 390px;max-height: 390px;height:100%" src="{{asset('storage/books/'.$book->image)}}" alt="Обложка"></a>
     <div class="card-body pb-3">
         <h5 class="card-title" style="overflow: hidden; max-height: 25px; text-overflow: ellipsis;white-space: nowrap;" title="{{$book->name}}">{{ $book->name }}</h5>
         <p class="card-text" style="opacity: .5">
