@@ -35,7 +35,9 @@ if(auth()->user()){
                         <li class="nav-item active">
                             <a class="nav-link" href="{{route('login')}}">Войти</a>
                         </li>
-
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('register')}}">Зарегистрироваться</a>
+                        </li>
                     @endguest
 
                     @auth()

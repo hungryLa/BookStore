@@ -17,8 +17,8 @@
                 <tbody>
                     @foreach($order->books as $book)
                         <tr>
-                            <td><a href="{{route('book',[$book->id])}}">{{$book->name}}</a></td>
-                            <td><nobr class=""><span class="badge badge-secondary">{{$book->pivot->count}}</span></nobr>
+                            <td><a style = "text-decoration: none;" href="{{route('book',[$book->id])}}">{{$book->name}}</a></td>
+                            <td><nobr class=""><span class="badge badge-secondary bg-dark">{{$book->pivot->count}}</span></nobr>
                                 <div class="btn-group form-inline">
                                     <form action="{{route('basket-remove',$book)}}" method="POST">
                                        @csrf
