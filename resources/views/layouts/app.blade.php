@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    @include('inc.header')
-
-    <div id = "borderBody">
+    <div id = "borderBody" class="min-vh-100">
+        @include('inc.header')
         <div class = "container p-3">
             @include('inc.messages')
 
@@ -34,6 +33,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
