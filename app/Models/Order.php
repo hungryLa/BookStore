@@ -13,22 +13,26 @@ class Order extends Model
     {
         return $this->belongsToMany(Book::class)->withPivot('count')->withTimestamps();
     }
-    public function getFullPrice(){
+
+    public function getFullPrice()
+    {
         $sum = 0;
-        foreach($this->books as $book){
+        foreach ($this->books as $book) {
             $sum += $book->getPriceForCount();
         }
         return $sum;
     }
-    public function saveOrder($name,$phone){
-        if($this->status === 0){
+
+    public function saveOrder($name, $phone)
+    {
+        if ($this->status === 0) {
             $this->name = $name;
             $this->phone = $phone;
             $this->status = 1;
             $this->save();
             session()->forget('orderId');
             return true;
-        }else{
+        } else {
             return false;
         }
 

@@ -1,30 +1,37 @@
 @extends('layouts.app')
 
 @section('title','Корзина')
+
 @section('content')
-    <div class ="starter-template border mx-auto p-3">
+    <div class="starter-template border mx-auto p-3">
         <h1 class="text-center mb-3">Корзина</h1>
         <div class="panel">
             <table class="table table-striped text-center">
                 <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Кол-во</th>
-                        <th>Цена</th>
-                        <th>Стоимость</th>
-                    </tr>
+                <tr>
+                    <th>Обложка</th>
+                    <th>Название</th>
+                    <th>Кол-во</th>
+                    <th>Цена</th>
+                    <th>Стоимость</th>
+                </tr>
                 </thead>
                 <tbody>
+                @if($order)
                     @foreach($order->books as $book)
                         <tr>
-                            <td><a style = "text-decoration: none;" href="{{route('book',[$book->id])}}">{{$book->name}}</a></td>
-                            <td><nobr class=""><span class="badge badge-secondary bg-dark">{{$book->pivot->count}}</span></nobr>
+                            <td><img width="125px" height="175px" src="{{asset('storage/books/'.$book->image)}}" alt=""></td>
+                            <td><a style="text-decoration: none;"
+                                   href="{{route('book',[$book->id])}}">{{$book->name}}</a></td>
+                            <td>
+                                <nobr class=""><span
+                                        class="badge badge-secondary bg-dark">{{$book->pivot->count}}</span></nobr>
                                 <div class="btn-group form-inline">
-                                    <form action="{{route('basket-remove',$book)}}" method="POST">
-                                       @csrf
-                                       <button type="submit" class="btn btn-danger">
-                                           <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span>
-                                       </button>
+                                    <form action="{{route('basket-remove', $book)}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span>
+                                        </button>
                                     </form>
                                     <form action="{{route('basket-add',$book)}}" method="POST">
                                         @csrf
@@ -38,15 +45,17 @@
                             <td>{{$book->getPriceForCount()}} руб</td>
                         </tr>
                     @endforeach
-                    <tr>
-                        <td>Общая стоимость:</td>
-                        <td colspan="2"></td>
-                        <td>{{$order->getFullPrice()}} рублей</td>
-                    </tr>
+                @endif
+                <tr>
+                    <td></td>
+                    <td colspan="2"></td>
+                    <td>Общая стоимость:</td>
+                    <td>{{$order->getFullPrice()}} рублей</td>
+                </tr>
                 </tbody>
             </table>
         </div>
-        <form action="{{route('basket-place')}}" method="GET">
+        <form action="{{route('basket-order')}}" method="GET">
             @csrf
             <div class="form-group row">
                 <div class="col-12">

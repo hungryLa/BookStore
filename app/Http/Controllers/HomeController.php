@@ -27,6 +27,7 @@ class HomeController extends Controller
 
     public function category($code)
     {
+        $genre = null;
         $genre = Genre::where('code', '=', $code)->first();
         $genres = Genre::orderBy('name')->get();
         return view('genre', ['genre' => $genre, 'genres' => $genres]);

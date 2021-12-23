@@ -11,15 +11,17 @@
     <div id = "borderBody" class="min-vh-100">
         @include('inc.header')
         <div class = "container p-3">
-            @include('inc.messages')
 
             <div class="row">
+
                 @if((Route::is('editDB')))
                     <div class="col-12">
+                        @include('inc.messages')
                         @yield('content')
                     </div>
                 @elseif((Route::is('home')) || (Route::is('BooksOfThisGenre')))
                     <div class="col-9 ">
+                        @include('inc.messages')
                         @yield('content')
                     </div>
                     <div class="col-3 asside rounded">
@@ -27,6 +29,7 @@
                     </div>
                 @else
                     <div class="col-12">
+                        @include('inc.messages')
                         @yield('content')
                     </div>
                 @endif
