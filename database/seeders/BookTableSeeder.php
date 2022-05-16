@@ -22,6 +22,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Эксклюзивная классика',
                 'price' => 189,
                 'visible' => 1,
+                'in_stock' => 100,
             ],
             [
                 'name' => 'Три товарища',
@@ -30,6 +31,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Эксклюзивная классика',
                 'price' => 229,
                 'visible' => 1,
+                'in_stock' => 100,
             ],
             [
                 'name' => 'Возлюби ближнего своего',
@@ -38,6 +40,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Эксклюзивная классика',
                 'price' => 250,
                 'visible' => 1,
+                'in_stock' => 90,
             ],
             [
                 'name' => 'Ночь в Лиссабоне',
@@ -46,6 +49,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Эксклюзивная классика',
                 'price' => 219,
                 'visible' => 1,
+                'in_stock' => 80,
             ],
             [
                 'name' => 'Жизнь взаймы',
@@ -54,6 +58,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Эксклюзивная классика',
                 'price' => 220,
                 'visible' => 1,
+                'in_stock' => 80,
             ],
             [
                 'name' => 'Драма на охоте',
@@ -62,6 +67,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Всемирная литература',
                 'price' => 125,
                 'visible' => 1,
+                'in_stock' => 50,
             ],
             [
                 'name' => 'Вишневый сад',
@@ -70,6 +76,7 @@ class BookTableSeeder extends Seeder
                 'pubHouse' => 'Всемирная литература',
                 'price' => 100,
                 'visible' => 1,
+                'in_stock' => 50,
             ],
         ]);
     }

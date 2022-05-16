@@ -17,6 +17,7 @@ class CreateGenresTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateGenresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genre');
+        Schema::dropIfExists('genres');
     }
 }

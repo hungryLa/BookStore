@@ -9,9 +9,14 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'phone',
+    ];
+
     public function books()
     {
-        return $this->belongsToMany(Book::class)->withPivot('count')->withTimestamps();
+        return $this->belongsToMany(Book::class,'book_order','order_id','book_id')->withPivot('count')->withTimestamps();
     }
 
     public function getFullPrice()

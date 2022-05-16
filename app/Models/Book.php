@@ -29,6 +29,12 @@ class Book extends Model
         return $this->belongsToMany(Genre::class);
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
+
     public function getPriceForCount()
     {
         if (!is_null($this->pivot)) {

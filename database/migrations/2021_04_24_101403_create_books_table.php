@@ -19,6 +19,9 @@ class CreateBooksTable extends Migration
             $table->integer('author_id');
             $table->string('image')->default('null');
             $table->string('pubHouse');
+            $table->integer('price')->default(0);
+            $table->boolean('visible')->default(0);
+            $table->integer('in_stock')->default(0);
             $table->timestamps();
         });
     }

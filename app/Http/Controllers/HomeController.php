@@ -19,6 +19,12 @@ class HomeController extends Controller
         //redirect()->route('home',compact('books','genres'));
     }
 
+    public function search(Request $request){
+        $data = $request->searchLine;
+        $books = Book::where('name', 'LIKE', "%{$data}%")->get();
+        return view('home',compact('books'));
+    }
+
     public function book($IdBook){
         $book = Book::find($IdBook);
         //dd($book->genres);
@@ -31,6 +37,13 @@ class HomeController extends Controller
         $genre = Genre::where('code', '=', $code)->first();
         $genres = Genre::orderBy('name')->get();
         return view('genre', ['genre' => $genre, 'genres' => $genres]);
+    }
+
+    // Страница автора со всеми его книгами
+    public function author($id){
+        $author = Author::find($id);
+        $books = Book::where('author_id',$id)->orderBy('created_at','desc')->get();
+        return view('author',compact('author','books'));
     }
 
     // Страница формы

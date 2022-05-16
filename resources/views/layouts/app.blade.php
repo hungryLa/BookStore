@@ -19,18 +19,13 @@
                         @include('inc.messages')
                         @yield('content')
                     </div>
-                @elseif((Route::is('home')) || (Route::is('BooksOfThisGenre')))
+                @else
                     <div class="col-9 ">
                         @include('inc.messages')
                         @yield('content')
                     </div>
                     <div class="col-3 asside rounded">
                         @yield('asside')
-                    </div>
-                @else
-                    <div class="col-12">
-                        @include('inc.messages')
-                        @yield('content')
                     </div>
                 @endif
             </div>

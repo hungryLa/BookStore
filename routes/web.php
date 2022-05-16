@@ -22,6 +22,7 @@ Auth::routes([
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('book/{id}', [HomeController::class,'book'])->name('book');
 Route::get('/reset',[ResetController::class,'reset'])->name('reset');
+Route::get('/search',[HomeController::class, 'search'])->name('search');
 
 // ВЗАИМОДЕЙСТВИЕ С СИСТЕМОЙ
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -108,7 +109,8 @@ Route::group(['prefix'=>'basket'],function (){
     });
 });
 
-Route::get('{genre}', [HomeController::class, 'category'])->name('BooksOfThisGenre');
+Route::get('books/{genre}', [HomeController::class, 'category'])->name('BooksOfThisGenre');
+Route::get('author/{id}', [HomeController::class, 'author'])->name('AuthorsBooks');
 
 
 

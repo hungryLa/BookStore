@@ -29,6 +29,10 @@ class OrderController extends Controller
     public function delete($IdOrder)
     {
         $order = Order::find($IdOrder);
+        foreach ($order->books()->get() as $book){
+            $book->in_stock = $book->in_stock + $book->pivot->count;
+            $book->update();
+        }
         $order->delete();
         session()->flash('success','Заказ был удален!');
         return redirect()->route('adminMain');

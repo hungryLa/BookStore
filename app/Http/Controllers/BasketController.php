@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\BookOrder;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,10 +53,15 @@ class BasketController extends Controller
      * Проверяем id заказа в сессии, если NULL возвращаем на главную страницу
      * Если нашли, то передаем данные на страницу "order"
      */
-    public function basketConfirm(Request $request): \Illuminate\Http\RedirectResponse
+    public function basketConfirm(Request $request)
     {
         $orderId = session('orderId');
         $order = Order::find($orderId);
+        // Уменьшаем кол-во книг в наличии
+        foreach($order->books()->get() as $book){
+            $book->in_stock = $book->in_stock - $book->pivot->count;
+            $book->update();
+        }
         $success = $order->saveOrder($request->name, $request->phone);
 
         if ($success) {
@@ -62,6 +69,7 @@ class BasketController extends Controller
         } else {
             session()->flash('warning', 'Что-то пошло не так');
         }
+
         return redirect()->route('home');
     }
 
@@ -74,8 +82,7 @@ class BasketController extends Controller
         } else {
             $order = Order::find($orderId);
         }
-        //dd($order->books());
-        if ($order->books->contains($bookId)) {
+        if($order->books->contains($bookId)){
             $pivotRow = $order->books()->where('book_id', $bookId)->first()->pivot;
             $pivotRow->count++;
             $pivotRow->update();
@@ -89,7 +96,6 @@ class BasketController extends Controller
         }
 
         return redirect()->route('basket');
-        //return view('basket',['order'=>$order]);
     }
 
     public function basketRemove($bookId)
