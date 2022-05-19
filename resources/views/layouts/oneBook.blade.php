@@ -5,7 +5,7 @@
     #dd($user->favorites()->where('book_id','=',$book->id)->get());
 ?>
 <div class="col-3">
-    <img class="img-fluid" src="{{asset('storage/books/'.$book->image)}}" alt="Обложка">
+    <img class="img-fluid" style="min-height: 450px;max-height: 450px;height:100%" src="{{asset('storage/books/'.$book->image)}}" alt="Обложка">
 </div>
 <div class="col-9">
     <h5 class="card-title">{{ $book->name }}</h5>

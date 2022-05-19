@@ -1,8 +1,15 @@
 <?php
+
+use App\Models\Author;
+use App\Models\Genre;
+
 if (auth()->user()) {
     $nameOfUser = auth()->user()->name;
 };
+$genres = Genre::orderBy('name')->get();
+$authors = Author::orderBy('SName')->orderBy('FName')->get();
 ?>
+
 <header class="site-header sticky-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -15,11 +22,44 @@ if (auth()->user()) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @auth()
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('editDB')}}">Добавить книгу</a>
-                        </li>
-                    @endauth
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Авторы
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            @foreach($authors as $author)
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="{{route('AuthorsBooks',['id'=>$author->id])}}">
+                                        {{$author->FName}} {{$author->SName}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Жанры
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            @foreach($genres as $genre)
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="{{route('BooksOfThisGenre',['genre' => $genre->code])}}">
+                                        {{$genre->name}}
+                                    </a>
+                                </li>
+                            @endforeach
+
+                        </ul>
+                    </div>
+                    <div class="nav-item">
+                        <form action="{{route('search')}}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" >
+                            <input type="text" class="form-control form-control-dark" name="searchLine" id="searchLine" placeholder="Поиск по сайту">
+                        </form>
+                    </div>
                 </ul>
 
                 <div class="d-flex">
@@ -30,10 +70,13 @@ if (auth()->user()) {
                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     Личный кабинет
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{route('cabinet.favorites')}}">Избранные</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="{{route('basket')}}">Корзина</a></li>
                                     <li><a class="dropdown-item" href="{{route('login')}}">Войти</a></li>
-                                    <li><a class="dropdown-item" href="{{route('register')}}">Зарегистрироваться</a></li>
+                                    <li><a class="dropdown-item" href="{{route('register')}}">Зарегистрироваться</a>
+                                    </li>
                                 </ul>
                             </div>
                         @endguest
@@ -44,10 +87,13 @@ if (auth()->user()) {
                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         {{$nameOfUser}}
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="{{route('basket')}}">Личный кабинет</a></li>
                                         @if(auth()->user()->is_admin == 1)
                                             <li><a class="dropdown-item" href="{{route('adminMain')}}">Админка</a></li>
                                         @endif
+                                        <li><a class="dropdown-item" href="{{route('cabinet.favorites')}}">Избранные</a>
+                                        </li>
                                         <li><a class="dropdown-item" href="{{route('basket')}}">Корзина</a></li>
                                         <li><a class="dropdown-item" href="{{route('logout')}}">Выйти</a></li>
                                     </ul>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\ResetController;
+use App\Http\Controllers\CabinetController;
 
 Auth::routes([
     'reset'=>false,
@@ -26,6 +27,13 @@ Route::group(['prefix' => 'book'],function (){
         ->name('book.addFavorites');
     Route::post('/{id}/removeFromFavorites',[HomeController::class, 'removeFromFavorites'])
         ->name('book.removeFromFavorites');
+});
+
+Route::group(['prefix'=>'cabinet'],function(){
+    Route::get('/favorites',[CabinetController::class,'favorites'])->name('cabinet.favorites');
+    Route::group(['middleware'=>'auth'],function(){
+
+    });
 });
 
 Route::get('/reset',[ResetController::class,'reset'])->name('reset');

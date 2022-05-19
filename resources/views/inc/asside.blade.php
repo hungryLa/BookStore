@@ -8,7 +8,7 @@
 <div>
         <div class="list-group mt-3" style="position: fixed;">
             <form action="{{route('search')}}">
-                <input type="text" name="searchLine" id="searchLine" placeholder="Поиск">
+                <input type="text" name="searchLine" id="searchLine" placeholder="Поиск по сайту">
                 <button type="submit">Найти</button>
             </form>
             <h4 class="mb-3" style="text-align: center;">Жанры</h4>

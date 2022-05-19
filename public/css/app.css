@@ -26,3 +26,9 @@ ul.grid{
 ul.grid li{
     border: 0px solid;
 }
+
+input#searchLine{
+    background-color: #212529;
+    color: #ffffff;
+    border-color: #6c757d;
+}

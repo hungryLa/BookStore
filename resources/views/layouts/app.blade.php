@@ -14,20 +14,10 @@
 
             <div class="row">
 
-                @if((Route::is('editDB')))
-                    <div class="col-12">
-                        @include('inc.messages')
-                        @yield('content')
-                    </div>
-                @else
-                    <div class="col-9 ">
-                        @include('inc.messages')
-                        @yield('content')
-                    </div>
-                    <div class="col-3 asside rounded">
-                        @yield('asside')
-                    </div>
-                @endif
+                <div class="col-12">
+                    @include('inc.messages')
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
