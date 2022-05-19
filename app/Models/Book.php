@@ -34,6 +34,10 @@ class Book extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function user(){
+        return $this->belongsToMany(User::class,'book_users');
+    }
+
 
     public function getPriceForCount()
     {

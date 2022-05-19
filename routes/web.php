@@ -20,7 +20,14 @@ Auth::routes([
 //Route::resource('books', 'BookController');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('book/{id}', [HomeController::class,'book'])->name('book');
+Route::group(['prefix' => 'book'],function (){
+    Route::get('/{id}', [HomeController::class,'book'])->name('book');
+    Route::post('/{id}/addFavorites',[HomeController::class, 'addFavorites'])
+        ->name('book.addFavorites');
+    Route::post('/{id}/removeFromFavorites',[HomeController::class, 'removeFromFavorites'])
+        ->name('book.removeFromFavorites');
+});
+
 Route::get('/reset',[ResetController::class,'reset'])->name('reset');
 Route::get('/search',[HomeController::class, 'search'])->name('search');
 

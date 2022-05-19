@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Genre;
+use http\Client\Curl\User;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\editDBRequest;
@@ -39,4 +40,5 @@ class BookController extends Controller
         //dd($book->genres);
         return view('oneBook',['book'=>$book]);
     }
+
 }

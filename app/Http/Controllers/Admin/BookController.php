@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\editDBRequest;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Favorites;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -53,13 +55,14 @@ class BookController extends Controller
         }
 
         if($book){
-            session()->flash('success','Книга была добавлена!');
+            session()->flash('success','Книга была добавлена в корзину!');
         }else{
             session()->flash('warning','Возникли какие-то проблемы!');
         }
 
         return redirect()->to(route('book.index'));
     }
+
 
 
     // Страница изменения книги

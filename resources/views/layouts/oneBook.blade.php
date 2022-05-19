@@ -1,3 +1,9 @@
+<?php
+    if(auth()->user()){
+        $user = auth()->user();
+    }
+    #dd($user->favorites()->where('book_id','=',$book->id)->get());
+?>
 <div class="col-3">
     <img class="img-fluid" src="{{asset('storage/books/'.$book->image)}}" alt="Обложка">
 </div>
@@ -12,8 +18,26 @@
         <form action="{{route('basket-add',$book->id)}}" method="post">
             @csrf
             <h6>В наличии {{$book->in_stock}} шт.</h6>
-            <button type = "submit" class = "btn btn-success">В корзину</button>
+            <button type="submit" class="btn btn-success">В корзину</button>
             <nobr class="ml-4">{{$book->price}} руб</nobr>
         </form>
+        @if(auth()->user())
+            @if($user->books->where('id','=',$book->id)->first())
+                <form action="{{route('book.removeFromFavorites',$book->id)}}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Удалить из избранного</button>
+                </form>
+            @else
+                <form action="{{route('book.addFavorites',$book->id)}}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-success">В избранное</button>
+                </form>
+            @endif
+        @endif
+
     </p>
 </div>
+
+@section('asside')
+    @include('inc.asside')
+@endsection

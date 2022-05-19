@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Admin\BookController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,7 +47,9 @@ class User extends Authenticatable
         return $this->is_admin === 1;
     }
 
-    public function favorites(){
-        return $this->belongsToMany(Favorites::class);
+    public function books(){
+        return $this->belongsToMany(Book::class,'book_users')->withPivot('status','user_id','book_id');
     }
+
+
 }
