@@ -8,17 +8,20 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    <div id = "borderBody" class="min-vh-100">
-        @include('inc.header')
-        <div class = "container p-3">
+<div id = "borderBody" class="min-vh-100">
+    @include('inc.header')
+    <div class = "container p-3">
 
-            <div class="row">
-                    <div class="col-12">
-                        @include('inc.messages')
-                        @yield('content')
-                    </div>
-            </div>
+        <div class="row">
+                <div class="col-10">
+                    @include('inc.messages')
+                    @yield('content')
+                </div>
+                <div class="col-2">
+                    @yield('aside')
+                </div>
         </div>
     </div>
+</div>
 </body>
 </html>

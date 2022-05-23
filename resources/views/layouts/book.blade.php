@@ -1,3 +1,8 @@
+<?php
+if (auth()->user()) {
+    $user = auth()->user();
+}
+?>
 <div class="card h-100">
     <a href="{{route('book',['id' => $book->id])}}"><img class = "card-img-top" style="min-height: 390px;max-height: 390px;height:100%" src="{{asset('storage/books/'.$book->image)}}" alt="Обложка"></a>
     <div class="card-body pb-3">
@@ -14,6 +19,19 @@
                 <button type = "submit" class = "btn btn-success">В корзину</button>
                 <nobr class="ml-4">{{$book->price}} руб</nobr>
             </form>
+            @if(auth()->user())
+                @if($user->books->where('id','=',$book->id)->first())
+                    <form action="{{route('book.removeFromFavorites',$book->id)}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Удалить из избранного</button>
+                    </form>
+                @else
+                    <form action="{{route('book.addFavorites',$book->id)}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-success">В избранное</button>
+                    </form>
+                @endif
+            @endif
         @endif
     </div>
 </div>

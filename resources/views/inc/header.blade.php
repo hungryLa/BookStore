@@ -70,10 +70,10 @@ $authors = Author::orderBy('SName')->orderBy('FName')->get();
                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     Личный кабинет
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{route('basket')}}">Корзина</a></li>
                                     <li><a class="dropdown-item" href="{{route('cabinet.favorites')}}">Избранные</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{route('basket')}}">Корзина</a></li>
                                     <li><a class="dropdown-item" href="{{route('login')}}">Войти</a></li>
                                     <li><a class="dropdown-item" href="{{route('register')}}">Зарегистрироваться</a>
                                     </li>
@@ -88,7 +88,7 @@ $authors = Author::orderBy('SName')->orderBy('FName')->get();
                                         {{$nameOfUser}}
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="{{route('basket')}}">Личный кабинет</a></li>
+                                        <li><a class="dropdown-item" href="{{route('cabinet.index')}}">Личный кабинет</a></li>
                                         @if(auth()->user()->is_admin == 1)
                                             <li><a class="dropdown-item" href="{{route('adminMain')}}">Админка</a></li>
                                         @endif

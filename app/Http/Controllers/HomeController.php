@@ -112,7 +112,7 @@ class HomeController extends Controller
                 session()->flash('warning', 'Возникли какие-то проблемы!');
             }
         }
-        return redirect()->to(route('book', $idBook));
+        return redirect()->back();
     }
 
     public function removeFromFavorites($idBook){
@@ -127,6 +127,6 @@ class HomeController extends Controller
         } else {
             session()->flash('warning', 'Эта книга не в ваших избранных!');
         }
-        return redirect()->to(route('book', $idBook));
+        return redirect()->back();
     }
 }

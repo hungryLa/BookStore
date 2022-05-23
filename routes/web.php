@@ -32,7 +32,11 @@ Route::group(['prefix' => 'book'],function (){
 Route::group(['prefix'=>'cabinet'],function(){
     Route::get('/favorites',[CabinetController::class,'favorites'])->name('cabinet.favorites');
     Route::group(['middleware'=>'auth'],function(){
-
+        Route::get('/',[CabinetController::class,'index'])->name('cabinet.index');
+        Route::get('/form',[CabinetController::class,'form'])->name('cabinet.form');
+        Route::post('/form/change',[CabinetController::class,'changeInformation'])->name('cabinet.changeInformation');
+        Route::get('/form/changePassword',[CabinetController::class,'indexPassword'])->name('cabinet.indexPassword');
+        Route::post('/form/changePassword',[CabinetController::class,'changePassword'])->name('cabinet.changePassword');
     });
 });
 
