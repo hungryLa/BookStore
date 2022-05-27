@@ -8,6 +8,8 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
+use MongoDB\Driver\Session;
 use function session, is_null, view;
 
 class BasketController extends Controller
@@ -43,7 +45,6 @@ class BasketController extends Controller
         if (is_null($orderId)) {
             return redirect()->route('home');
         }
-        /* ??? */
         $order = Order::find($orderId);
         return view('order', ['order' => $order]);
     }
@@ -62,9 +63,7 @@ class BasketController extends Controller
             $book->in_stock = $book->in_stock - $book->pivot->count;
             $book->update();
         }
-        $order->name = $request->name;
-        $order->phone = $request->phone;
-        $success = $order->update();
+        $success = $order->saveOrder($request->name,$request->phone);
 
         if ($success) {
             session()->flash('success', 'Ваш заказ принят в обработку');

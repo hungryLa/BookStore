@@ -24,6 +24,13 @@ class OrderController extends Controller
         return view('admin.orders.index',compact('orders','status'));
     }
 
+    public function order($id){
+        $user = auth()->user();
+        $order = Order::where('id','=',$id)->first();
+        $books = $order->books;
+        return view('admin/orders/order',compact('order','books'));
+    }
+
     public function check($IdOrder){
         $order = Order::find($IdOrder);
         $order->status = 'Taken';

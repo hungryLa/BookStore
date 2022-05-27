@@ -72,7 +72,6 @@ $authors = Author::orderBy('FName')->orderBy('SName')->get();
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{route('basket')}}">Корзина</a></li>
-                                    <li><a class="dropdown-item" href="{{route('cabinet.favorites')}}">Избранные</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{route('login')}}">Войти</a></li>
                                     <li><a class="dropdown-item" href="{{route('register')}}">Зарегистрироваться</a>

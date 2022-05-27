@@ -62,6 +62,7 @@ Route::group([
     'namespace' => ''], function(){
     //ЗАКАЗЫ
     Route::get('',[OrderController::class, 'index'])->name('adminMain');
+    Route::get('orders/{id}',[OrderController::class,'order'])->name('admin.order');
     Route::get('orders/{id}/delete',[OrderController::class, 'delete'])
         ->name('deleteOrder');
     Route::post('orders/{id}/change',[OrderController::class, 'change'])

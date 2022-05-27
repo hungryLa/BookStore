@@ -86,4 +86,11 @@ class CabinetController extends Controller
 
         return view('cabinet/orders',compact('orders'));
     }
+
+    public function order($id){
+        $user = auth()->user();
+        $order = Order::where('id','=',$id)->first();
+        $books = $order->books;
+        return view('cabinet/order',compact('order','books'));
+    }
 }

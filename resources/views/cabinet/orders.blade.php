@@ -1,11 +1,11 @@
 @extends("cabinet.app")
 
 @section("title")
-    Личный кабинет
+    Личный кабинет.Заказы
 @endsection
 
 @section('content')
-    <h2>Личный кабинет. Информация </h2>
+    <h2>Личный кабинет. Заказы </h2>
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +19,7 @@
         <tbody>
         @foreach($orders as $order)
             <tr>
-                <th scope="row"><a href="{{route('cabinet.order', ['id' => $order->id])}}">{{$order->id}}</a></th>
+                <th scope="row"><a href="{{route('cabinet.order', ['id' => $order->id])}}" class="text-decoration-none">{{$order->id}}</a></th>
                 <td>{{__("local.Orders.".$order->status)}}</td>
                 <td>{{$order->getFullPrice()}}</td>
                 <td>{{$order->created_at->format('d-m-Y')}}</td>

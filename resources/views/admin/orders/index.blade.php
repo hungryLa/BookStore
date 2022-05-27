@@ -21,7 +21,7 @@
         @foreach($orders as $order)
             <form action="{{route('changeOrder',$order->id)}}" method="POST">
             <tr>
-                <th scope="row">{{$order->id}}</th>
+                <th scope="row"><a href="{{route('admin.order',['id'=>$order->id])}}" class="text-decoration-none">{{$order->id}}</a></th>
                 <td>{{$order->name}}</td>
                 <td>{{$order->phone}}</td>
                 <td>
