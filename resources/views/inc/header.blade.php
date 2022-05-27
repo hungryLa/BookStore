@@ -7,7 +7,7 @@ if (auth()->user()) {
     $nameOfUser = auth()->user()->name;
 };
 $genres = Genre::orderBy('name')->get();
-$authors = Author::orderBy('SName')->orderBy('FName')->get();
+$authors = Author::orderBy('FName')->orderBy('SName')->get();
 ?>
 
 <header class="site-header sticky-top">

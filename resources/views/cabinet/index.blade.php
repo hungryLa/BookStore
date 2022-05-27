@@ -13,8 +13,13 @@
         </div>
 
         <div class="input-group mb-3">
+            <span class="input-group-text" id="user_name">Номер телефона</span>
+            <input disabled type="text" class="form-control" placeholder="Номер телефона" aria-label="phoneNumber" aria-describedby="phoneNumber" value="{{$user->phone}}">
+        </div>
+
+        <div class="input-group mb-3">
             <span class="input-group-text" id="user_email">Email</span>
-            <input disabled type="text" class="form-control" placeholder="Email пользователя" aria-label="Recipient's username" aria-describedby="user_email" value="{{$user->email}}">
+            <input disabled type="text" class="form-control" placeholder="Email пользователя" aria-label="user_email" aria-describedby="user_email" value="{{$user->email}}">
         </div>
 
         <div class="input-group">

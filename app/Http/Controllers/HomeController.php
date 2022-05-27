@@ -9,6 +9,7 @@ use App\Models\BookUser;
 use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,9 +24,11 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        $allBooks = Book::all();
         $data = $request->searchLine;
         $books = Book::where('name', 'LIKE', "%{$data}%")->get();
-        return view('home', compact('books'));
+        $authors = Author::where('FName', 'LIKE', "%{$data}%")->orWhere('SName', 'LIKE', "%{$data}%")->orderBy('FName')->orderBy('SName')->get();
+        return view('resultSearching', compact('books', 'authors','allBooks'));
     }
 
     public function book($IdBook)
@@ -115,10 +118,11 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function removeFromFavorites($idBook){
+    public function removeFromFavorites($idBook)
+    {
         $user = auth()->user();
         if ($user->books()->where('status', '=', 'Favorites')->where('book_id', '=', $idBook)->first()) {
-            $success = BookUser::where('status', '=', 'Favorites')->where('book_id','=',$idBook)->delete();
+            $success = BookUser::where('status', '=', 'Favorites')->where('book_id', '=', $idBook)->delete();
             if ($success) {
                 session()->flash('success', 'Книга была удалена из избранных!');
             } else {

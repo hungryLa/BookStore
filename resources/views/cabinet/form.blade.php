@@ -15,6 +15,12 @@
         </div>
 
         <div class="input-group mb-3">
+            <span class="input-group-text" id="phoneNumber">Номер телефона</span>
+            <input type="text" class="form-control" placeholder="Номер телефона" name="phoneNumber" id="phoneNumber"
+                   value="{{old('phoneNumber',$user->phone)}}">
+        </div>
+
+        <div class="input-group mb-3">
             <span class="input-group-text" id="email">Email</span>
             <input type="text" class="form-control" placeholder="Email пользователя" name="email" id="email"
                    value="{{old('email',$user->email)}}">

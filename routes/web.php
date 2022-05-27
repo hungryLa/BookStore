@@ -33,6 +33,8 @@ Route::group(['prefix'=>'cabinet'],function(){
     Route::get('/favorites',[CabinetController::class,'favorites'])->name('cabinet.favorites');
     Route::group(['middleware'=>'auth'],function(){
         Route::get('/',[CabinetController::class,'index'])->name('cabinet.index');
+        Route::get('/orders',[CabinetController::class,'ordersIndex'])->name('cabinet.orders');
+        Route::get('/order/{id}',[CabinetController::class,'order'])->name('cabinet.order');
         Route::get('/form',[CabinetController::class,'form'])->name('cabinet.form');
         Route::post('/form/change',[CabinetController::class,'changeInformation'])->name('cabinet.changeInformation');
         Route::get('/form/changePassword',[CabinetController::class,'indexPassword'])->name('cabinet.indexPassword');
@@ -62,6 +64,8 @@ Route::group([
     Route::get('',[OrderController::class, 'index'])->name('adminMain');
     Route::get('orders/{id}/delete',[OrderController::class, 'delete'])
         ->name('deleteOrder');
+    Route::post('orders/{id}/change',[OrderController::class, 'change'])
+        ->name('changeOrder');
     Route::get('orders/{id}/check',[OrderController::class, 'check'])
         ->name('checkOrder');
 

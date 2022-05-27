@@ -62,7 +62,9 @@ class BasketController extends Controller
             $book->in_stock = $book->in_stock - $book->pivot->count;
             $book->update();
         }
-        $success = $order->saveOrder($request->name, $request->phone);
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $success = $order->update();
 
         if ($success) {
             session()->flash('success', 'Ваш заказ принят в обработку');

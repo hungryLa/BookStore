@@ -1,3 +1,6 @@
+<?php
+    $user = auth()->user();
+?>
 @extends('layouts.app')
 
 @section('title','Оформление заказа')
@@ -11,15 +14,15 @@
             @csrf
             <div class="form-group">
                 <label for="name">Имя</label>
-                <input type="text" name="name" class="form-control" placeholder="Введите имя">
+                <input type="text" name="name" class="form-control" placeholder="Введите имя" value="{{$user ? $user->name : '' }}">
             </div>
             <div class="form-group">
                 <label for="name">Телефон</label>
-                <input type="text" name="phone" class="form-control" placeholder="Введите телефон для обратной связи">
+                <input type="text" name="phone" class="form-control" placeholder="Введите телефон для обратной связи" value="{{$user ? $user->phone : ''}}">
             </div>
-            <div class="form-group row">
-                <div class="col-9"></div>
-                <div class="col-3">
+            <div class="form-group row mt-4">
+                <div class="col-10"></div>
+                <div class="col-2">
                     <button type="submit" class="btn btn-success float-right">Отправить данные</button>
                 </div>
             </div>

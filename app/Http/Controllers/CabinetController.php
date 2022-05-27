@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CabinetChangePasswordRequest;
@@ -77,5 +78,12 @@ class CabinetController extends Controller
         session()->flash('success','Пароль успешно изменен!');
         return redirect()->route('cabinet.index');
 
+    }
+
+    public function ordersIndex(){
+        $user = auth()->user();
+        $orders = Order::where('user_id','=',$user->id)->orderBy('id','DESC')->get();
+
+        return view('cabinet/orders',compact('orders'));
     }
 }
