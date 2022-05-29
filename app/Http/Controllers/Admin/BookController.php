@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BooksExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\editDBRequest;
+use App\Imports\BooksImport;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Favorites;
 use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use MongoDB\Driver\Session;
 
 class BookController extends Controller
 {
@@ -32,7 +36,7 @@ class BookController extends Controller
     public function addBook(editDBRequest $request)
     {
         // Загрузка изображения на сервер
-        $request->file('image')->store('public/books/');
+        $request->file('image')->store('books/');
         $nameFile = $request->file('image')->hashName();
 
         //Создание записи
@@ -86,12 +90,16 @@ class BookController extends Controller
             $book->pubHouse = $req->pubHouse;
             $book->visible = $req->visible;
             $book->price = $req->price;
-            //Отсоединияем все записи
-            $book->genres()->detach();
+            $book->in_stock = $req->in_stock;
 
-            $genres = $req->genres;
-            foreach ($genres as $genre){
-                $book->genres()->attach($genre);
+            if($req->genres){
+                //Отсоединияем все записи
+                $book->genres()->detach();
+
+                $genres = $req->genres;
+                foreach ($genres as $genre){
+                    $book->genres()->attach($genre);
+                }
             }
         }
         // Изменение обложки
@@ -120,19 +128,37 @@ class BookController extends Controller
     public function deleteCover($IdBook)
     {
         $book = Book::find($IdBook);
-        if ($book->image != '') {
+        if ($book->image != 'null') {
             $file_path = public_path() . "/storage/books/" . $book->image;
             unlink($file_path);
+            $book->image = 'null';
+            $book->save();
         }
-        $book->image = '';
-        $book->save();
     }
     // Скрипт удалении книги
     public function deleteBook($IdBook): \Illuminate\Http\RedirectResponse
     {
+        $book = Book::find($IdBook);
         $this->deleteCover($IdBook);
-        Book::find($IdBook)->delete();
+        $book->delete();
         session()->flash('success','Книга была удалена!');
         return redirect()->to(route('book.index'));
+    }
+
+    public function addExportForm(Request $request){
+        if($request->session()->get('exportForm'))
+            $request->session()->put('exportForm',False);
+        else{
+            $request->session()->put('exportForm',True);
+        }
+        return redirect()->back();
+    }
+
+    public function export(){
+        return Excel::download(new BooksExport, 'Books.xlsx');
+    }
+    public function import(Request $request){
+        Excel::import(new BooksImport(), $request->file('files'));
+        return redirect()->back()->with('success', 'Экспорт прошёл успешно!');
     }
 }

@@ -16,6 +16,7 @@ class Book extends Model
         'visible',
         'image',
         'price',
+        'in_stock',
     ];
 
 //Обратное отношение один ко многим (у книги 1 автор)

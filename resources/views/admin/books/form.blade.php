@@ -93,7 +93,16 @@
                        value ="{{$book ? $book->price : old('price')}}" id="price" class="form-control">
             </div>
             <div class="form-group">
-                <input type="file" class = "form-control-file" id = "image" name = "image" value="Выберите обложку"><br>
+                <label for="pubHouse">В наличии:</label>
+                <input type="text" name="in_stock" placeholder="Введите кол-во"
+                       value ="{{$book ? $book->in_stock : old('in_stock')}}" id="in_stock" class="form-control">
+            </div>
+            <div class="form-group mb-3 mt-3">
+                @if($book)
+                    <button type = "submit" name = "change" value="2" class = "btn btn-warning float-right">Поменять обложку</button>
+                @endif
+                <input type="file" class = "form-control-file" id = "image" name = "image" value="Выберите обложку">
+
             </div>
             <div class="row form-group">
                 <div class="col-6">
@@ -101,11 +110,6 @@
                         {{$book ? 'Изменить' : 'Добавить'}}
                     </button>
                 </div>
-                @if($book)
-                    <div class="col-6">
-                        <button type = "submit" name = "change" value="2" class = "btn btn-warning float-right">Поменять обложку</button>
-                    </div>
-                @endif
             </div>
         </form>
     </div>

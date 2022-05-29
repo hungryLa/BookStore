@@ -14,24 +14,26 @@ if (auth()->user()) {
             <a href="{{route('book.change',['id' => $book->id])}}" class="btn btn-warning">Изменить</a>
             <a href="{{route('book.delete',['id' => $book->id])}}" class="btn btn-danger">Удалить</a>
         @else
-            <form action="{{route('basket-add',$book->id)}}" method="post">
-                @csrf
-                <button type = "submit" class = "btn btn-success">В корзину</button>
-                <nobr class="ml-4">{{$book->price}} руб</nobr>
-            </form>
-            @if(auth()->user())
-                @if($user->books->where('id','=',$book->id)->first())
-                    <form action="{{route('book.removeFromFavorites',$book->id)}}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Удалить из избранного</button>
-                    </form>
-                @else
-                    <form action="{{route('book.addFavorites',$book->id)}}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success">В избранное</button>
-                    </form>
+            <div class="row">
+                <form action="{{route('basket-add',$book->id)}}" class="col-9" method="post">
+                    @csrf
+                    <p class="ml-4">{{$book->price}} руб</p>
+                    <button type = "submit" class = "btn btn-success">В корзину</button>
+                </form>
+                @if(auth()->user())
+                    @if($user->books->where('id','=',$book->id)->first())
+                        <form action="{{route('book.removeFromFavorites',$book->id)}}" class="col-3 d-flex flex-column justify-content-end" method="post">
+                            @csrf
+                            <button type="submit" style="width: 36px; height: 36px;" class="btn p-0 mt-4"><img class="w-100 h-100" src="{{asset('storage/icons/star_active.png')}}" alt=""></button>
+                        </form>
+                    @else
+                        <form action="{{route('book.addFavorites',$book->id)}}" class="col-3 d-flex flex-column justify-content-end" method="post">
+                            @csrf
+                            <button type="submit" style="width: 36px; height: 36px;" class="btn p-0 mt-4"><img class="w-100 h-100"  src="{{asset('storage/icons/star.png')}}" alt=""></button>
+                        </form>
+                    @endif
                 @endif
-            @endif
+            </div>
         @endif
     </div>
 </div>

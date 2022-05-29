@@ -84,6 +84,9 @@ Route::group([
             ->name('book.change');
         Route::post('/{id}/update', [BookController::class, 'updateBook'])
             ->name('book.update');
+        Route::get('export',[BookController::class,'export'])->name('book.export');
+        Route::get('addExportForm',[BookController::class,'addExportForm'])->name('book.addExportForm');
+        Route::post('import',[BookController::class,'import'])->name('book.import');
     });
 
     //ЖАНРЫ
