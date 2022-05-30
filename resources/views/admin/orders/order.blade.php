@@ -15,16 +15,16 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($books as $book)
+        @foreach($products as $product)
             <tr>
                 <th scope="row">
-                    <img  style="min-height: 100px;max-height: 200px;height:100%" src="{{asset('storage/product/'.$book->image)}}" alt="Обложка">
+                    <img  style="min-height: 100px;max-height: 200px;height:100%" src="{{asset('storage/products/'.$product->image)}}" alt="Обложка">
                 </th>
-                <td>{{$book->name}}</td>
-                <td>{{$book->author ? $book->author->FName . ' ' . $book->author->SName : ''}}</td>
-                <td>{{$book->pubHouse}}</td>
-                <td>{{$book->pivot->count}}</td>
-                <td>{{$book->getPriceForCount()}}</td>
+                <td>{{$product->name}}</td>
+                <td>{{$product->author ? $product->creator->FName . ' ' . $product->creator->SName : ''}}</td>
+                <td>{{$product->producer}}</td>
+                <td>{{$product->pivot->count}}</td>
+                <td>{{$product->getPriceForCount()}}</td>
             </tr>
         @endforeach
         </tbody>

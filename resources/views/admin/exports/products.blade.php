@@ -22,8 +22,8 @@
             <td>{{ $product->price }}</td>
             <td>{{ $product->visible }}</td>
             <td>{{ $product->in_stock }}</td>
-            <td>{{ $product->created_at->format('d-m-Y') }}</td>
-            <td>{{ $product->updated_at->format('d-m-Y') }}</td>
+            <td>{{ $product->created_at == null ? $product->created_at : $product->created_at->format('d-m-Y') }}</td>
+            <td>{{ $product->updated_at == null ? $product->updated_at : $product->updated_at->format('d-m-Y') }}</td>
         </tr>
     @endforeach
     </tbody>

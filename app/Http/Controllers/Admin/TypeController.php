@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TypesExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FileRequest;
+use App\Imports\TypesImport;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Requests\TypeRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TypeController extends Controller
 {
@@ -67,6 +71,24 @@ class TypeController extends Controller
         session()->flash('success', 'Жанр был удалён!');
 
         return redirect()->route('type.index');
+    }
+
+    public function export(){
+        return Excel::download(new TypesExport(), 'Types.xlsx');
+    }
+
+    public function addExportForm(Request $request){
+        if($request->session()->get('exportFormType'))
+            $request->session()->put('exportFormType',False);
+        else{
+            $request->session()->put('exportFormType',True);
+        }
+        return redirect()->back();
+    }
+
+    public function import(FileRequest $request){
+        Excel::import(new TypesImport(), $request->file('files'));
+        return redirect()->back()->with('success', 'Экспорт прошёл успешно!');
     }
 
 }

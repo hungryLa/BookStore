@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ProductsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\editDBRequest;
+use App\Http\Requests\FileRequest;
 use App\Imports\ProductsImport;
 use App\Models\Creator;
 use App\Models\Product;
@@ -146,10 +147,10 @@ class ProductController extends Controller
     }
 
     public function addExportForm(Request $request){
-        if($request->session()->get('exportForm'))
-            $request->session()->put('exportForm',False);
+        if($request->session()->get('exportFormProduct'))
+            $request->session()->put('exportFormProduct',False);
         else{
-            $request->session()->put('exportForm',True);
+            $request->session()->put('exportFormProduct',True);
         }
         return redirect()->back();
     }
@@ -157,7 +158,7 @@ class ProductController extends Controller
     public function export(){
         return Excel::download(new ProductsExport, 'Products.xlsx');
     }
-    public function import(Request $request){
+    public function import(FileRequest $request){
         Excel::import(new ProductsImport(), $request->file('files'));
         return redirect()->back()->with('success', 'Экспорт прошёл успешно!');
     }

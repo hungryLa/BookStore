@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CabinetChangePasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CabinetController extends Controller
 {
@@ -88,9 +91,15 @@ class CabinetController extends Controller
     }
 
     public function order($id){
-        $user = auth()->user();
         $order = Order::where('id','=',$id)->first();
         $products = $order->products;
         return view('cabinet/order',compact('order','products'));
+    }
+
+    public function export($id){
+        $order = Order::where('id','=',$id)->first();
+        $products = $order->products;
+        $pdf = PDF::loadView('cabinet.pdf',compact('order','products'));
+        return $pdf->download('example.pdf');
     }
 }

@@ -32,7 +32,11 @@
         @endforeach
         </tbody>
     </table>
-    <button>Распечатать</button>
+    <form action="{{route('cabinet.order.export',['id'=> $order->id])}}" method="GET">
+        @csrf
+        <button class="btn btn-success">Распечатать</button>
+    </form>
+
 @endsection
 @section('aside')
     @include('cabinet.inc.aside')

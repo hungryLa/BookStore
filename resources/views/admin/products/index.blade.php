@@ -10,19 +10,17 @@
     <h1>Продукты</h1>
     <div class="row">
         <a href='{{route('product.addForm')}}' class="btn btn-success w-auto col-1">Добавить продукт</a>
-        {{--        <form action="{{route('product.import')}}" method="POST" enctype="multipart/form-data">@csrf<input type="file" name="files"><input type="submit"></form>--}}
         <div class="dropdown col-2 test">
             <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                 Импорт/Экспорт
             </button>
             <ul class="dropdown-menu">
-{{--                <li><a href='{{route('product.import')}}' class="btn btn-warning dropdown-item">Импорт</a></li>--}}
                 <li><a href="{{route('product.addExportForm')}}" class="btn btn-warning dropdown-item import">Импорт</a></li>
                 <li><a href='{{route('product.export')}}' class="btn btn-success dropdown-item">Экспорт</a></li>
             </ul>
         </div>
-        @if(Session::get('exportForm'))
+        @if(Session::get('exportFormProduct'))
             <hr class="mt-1">
             <form action="{{route('product.import')}}" method="POST" enctype="multipart/form-data" class="m-2">
                 @csrf
