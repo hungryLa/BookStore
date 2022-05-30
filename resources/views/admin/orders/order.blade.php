@@ -18,7 +18,7 @@
         @foreach($books as $book)
             <tr>
                 <th scope="row">
-                    <img  style="min-height: 100px;max-height: 200px;height:100%" src="{{asset('storage/books/'.$book->image)}}" alt="Обложка">
+                    <img  style="min-height: 100px;max-height: 200px;height:100%" src="{{asset('storage/product/'.$book->image)}}" alt="Обложка">
                 </th>
                 <td>{{$book->name}}</td>
                 <td>{{$book->author ? $book->author->FName . ' ' . $book->author->SName : ''}}</td>

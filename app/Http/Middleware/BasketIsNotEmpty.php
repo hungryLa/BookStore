@@ -21,7 +21,7 @@ class BasketIsNotEmpty
 
         if(!is_null($orderId)){
             $order = Order::findOrFail($orderId);
-            if($order->books->count() > 0){
+            if($order->products->count() > 0){
                 return $next($request);
             }
         }

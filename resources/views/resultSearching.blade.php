@@ -6,22 +6,22 @@
 
 @section('content')
     <div class="row">
-        @if(count($books) != 0)
+        @if(count($products) != 0)
             <h2 style="text-align: center;" class="mb-4">По названию</h2>
-            @foreach($books as $book)
+            @foreach($products as $product)
                 <div class="col-3 mb-3" style="border:0px solid ">
-                    @include('layouts.book',['book' => $book])
+                    @include('layouts.product',['product' => $product])
                 </div>
             @endforeach
         @endif
 
-        @if(count($authors) != 0)
+        @if(count($creators) != 0)
             <h2 style="text-align: center;" class="mb-4">По автору</h2>
-            @foreach($authors as $author)
-                @foreach($allBooks as $book)
-                    @if($book->author_id == $author->id)
+            @foreach($creators as $creator)
+                @foreach($allProducts as $product)
+                    @if($product->creator_id == $creator->id)
                         <div class="col-3 mb-3" style="border:0px solid ">
-                            @include('layouts.book',['book' => $book])
+                            @include('layouts.product',['product' => $product])
                         </div>
                     @endif
                 @endforeach

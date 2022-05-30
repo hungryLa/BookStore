@@ -6,9 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\GenreController;
-use App\Http\Controllers\Admin\AuthorController;
-use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\CreatorController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\CabinetController;
 
@@ -18,15 +18,15 @@ Auth::routes([
     'verify'=>false,
 ]);
 
-//Route::resource('books', 'BookController');
+//Route::resource('product', 'ProductController');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::group(['prefix' => 'book'],function (){
-    Route::get('/{id}', [HomeController::class,'book'])->name('book');
+Route::group(['prefix' => 'product'],function (){
+    Route::get('/{id}', [HomeController::class,'product'])->name('product');
     Route::post('/{id}/addFavorites',[HomeController::class, 'addFavorites'])
-        ->name('book.addFavorites');
+        ->name('product.addFavorites');
     Route::post('/{id}/removeFromFavorites',[HomeController::class, 'removeFromFavorites'])
-        ->name('book.removeFromFavorites');
+        ->name('product.removeFromFavorites');
 });
 
 Route::group(['prefix'=>'cabinet'],function(){
@@ -71,54 +71,54 @@ Route::group([
         ->name('checkOrder');
 
     //КНИГИ
-    Route::group(['prefix' => 'books'],function (){
-        Route::get('',[BookController::class, 'index'])
-            ->name('book.index');
-        Route::get('/form', [BookController::class, 'addForm'])
-            ->name('book.addForm');
-        Route::post('/add', [BookController::class, 'addBook'])
-            ->name('book.add');
-        Route::get('/{id}/delete', [BookController::class, 'deleteBook'])
-            ->name('book.delete');
-        Route::get('/{id}/change', [BookController::class, 'changeBook'])
-            ->name('book.change');
-        Route::post('/{id}/update', [BookController::class, 'updateBook'])
-            ->name('book.update');
-        Route::get('export',[BookController::class,'export'])->name('book.export');
-        Route::get('addExportForm',[BookController::class,'addExportForm'])->name('book.addExportForm');
-        Route::post('import',[BookController::class,'import'])->name('book.import');
+    Route::group(['prefix' => 'products'],function (){
+        Route::get('',[ProductController::class, 'index'])
+            ->name('product.index');
+        Route::get('/form', [ProductController::class, 'addForm'])
+            ->name('product.addForm');
+        Route::post('/add', [ProductController::class, 'addProduct'])
+            ->name('product.add');
+        Route::get('/{id}/delete', [ProductController::class, 'deleteProduct'])
+            ->name('product.delete');
+        Route::get('/{id}/change', [ProductController::class, 'changeProduct'])
+            ->name('product.change');
+        Route::post('/{id}/update', [ProductController::class, 'updateProduct'])
+            ->name('product.update');
+        Route::get('export',[ProductController::class,'export'])->name('product.export');
+        Route::get('addExportForm',[ProductController::class,'addExportForm'])->name('product.addExportForm');
+        Route::post('import',[ProductController::class,'import'])->name('product.import');
     });
 
     //ЖАНРЫ
-    Route::group(['prefix'=>'genres'],function (){
-        Route::get('', [GenreController::class,'index'])
-            ->name('genre.index');
-        Route::get('/form',[GenreController::class,'addFrom'])
-            ->name('genre.addForm');
-        Route::post('/add',[GenreController::class,'add'])
-            ->name('genre.add');
-        Route::get('/{id}/change',[GenreController::class,'updateFrom'])
-            ->name('genre.updateForm');
-        Route::post('/{id}/update',[GenreController::class,'update'])
-            ->name('genre.update');
-        Route::get('/{id}/delete',[GenreController::class,'delete'])
-            ->name('genre.delete');
+    Route::group(['prefix'=>'types'],function (){
+        Route::get('', [TypeController::class,'index'])
+            ->name('type.index');
+        Route::get('/form',[TypeController::class,'addFrom'])
+            ->name('type.addForm');
+        Route::post('/add',[TypeController::class,'add'])
+            ->name('type.add');
+        Route::get('/{id}/change',[TypeController::class,'updateFrom'])
+            ->name('type.updateForm');
+        Route::post('/{id}/update',[TypeController::class,'update'])
+            ->name('type.update');
+        Route::get('/{id}/delete',[TypeController::class,'delete'])
+            ->name('type.delete');
     });
 
     //АВТОРЫ
-    Route::group(['prefix'=>'authors'],function (){
-        Route::get('', [AuthorController::class,'index'])
-            ->name('author.index');
-        Route::get('/form',[AuthorController::class,'addForm'])
-            ->name('author.addForm');
-        Route::post('/add',[AuthorController::class,'add'])
-            ->name('author.add');
-        Route::get('/{id}/change',[AuthorController::class,'updateForm'])
-            ->name('author.updateForm');
-        Route::post('/{id}/update',[AuthorController::class,'update'])
-            ->name('author.update');
-        Route::get('/{id}/delete',[AuthorController::class,'delete'])
-            ->name('author.delete');
+    Route::group(['prefix'=>'creators'],function (){
+        Route::get('', [CreatorController::class,'index'])
+            ->name('creator.index');
+        Route::get('/form',[CreatorController::class,'addForm'])
+            ->name('creator.addForm');
+        Route::post('/add',[CreatorController::class,'add'])
+            ->name('creator.add');
+        Route::get('/{id}/change',[CreatorController::class,'updateForm'])
+            ->name('creator.updateForm');
+        Route::post('/{id}/update',[CreatorController::class,'update'])
+            ->name('creator.update');
+        Route::get('/{id}/delete',[CreatorController::class,'delete'])
+            ->name('creator.delete');
     });
 
 });
@@ -136,8 +136,8 @@ Route::group(['prefix'=>'basket'],function (){
     });
 });
 
-Route::get('books/{genre}', [HomeController::class, 'category'])->name('BooksOfThisGenre');
-Route::get('author/{id}', [HomeController::class, 'author'])->name('AuthorsBooks');
+Route::get('products/{type}', [HomeController::class, 'category'])->name('ProductsOfThisType');
+Route::get('creator/{id}', [HomeController::class, 'creator'])->name('CreatorsProducts');
 
 
 

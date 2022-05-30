@@ -15,16 +15,16 @@ class Order extends Model
         'status',
     ];
 
-    public function books()
+    public function products()
     {
-        return $this->belongsToMany(Book::class,'book_order','order_id','book_id')->withPivot('count')->withTimestamps();
+        return $this->belongsToMany(Product::class,'product_order','order_id','product_id')->withPivot('count')->withTimestamps();
     }
 
     public function getFullPrice()
     {
         $sum = 0;
-        foreach ($this->books as $book) {
-            $sum += $book->getPriceForCount();
+        foreach ($this->products as $product) {
+            $sum += $product->getPriceForCount();
         }
         return $sum;
     }

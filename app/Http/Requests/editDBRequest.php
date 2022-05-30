@@ -19,8 +19,8 @@ class editDBRequest extends FormRequest
     public function attributes()
     {
         return [
-            'pubHouse' => 'Издательство книги',
-            'name' => 'Название книги',
+            'producer' => 'Производитель продукта',
+            'name' => 'Название продукта',
             'price' => 'Цена',
         ];
     }
@@ -33,11 +33,11 @@ class editDBRequest extends FormRequest
     public function rules()
     {
         return [
-            'pubHouse' => 'required|min:2',
-            'author' => 'gt:0',
+            'producer' => 'required|min:2',
+            'creator' => 'gt:0',
             'name' => 'required|string',
             'visible' => 'between:0,1',
-            'genres' => 'required',
+            'types' => 'required',
             'price' => 'required|int',
             'image' => 'required',
         ];
@@ -48,7 +48,7 @@ class editDBRequest extends FormRequest
         return [
             'author.gt' => 'Вы не выбрали автора',
             'visible.between' => 'Вы не выбрали видимость',
-            'genres.required' => 'Выберите хотя бы один жанр',
+            'types.required' => 'Выберите хотя бы один жанр',
             'image.required' => 'Вы не выбрали обложку',
         ];
     }

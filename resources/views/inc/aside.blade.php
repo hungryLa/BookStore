@@ -1,9 +1,9 @@
 <?php
-    use App\Models\Author;
-    use App\Models\Genre;
+    use App\Models\Creator;
+    use App\Models\Type;
 
-    $genres = Genre::orderBy('name')->get();
-    $authors = Author::orderBy('SName')->orderBy('FName')->get();
+    $types = Type::orderBy('name')->get();
+    $creators = Creator::orderBy('SName')->orderBy('FName')->get();
 ?>
 <div>
         <div class="list-group mt-3" style="position: fixed;">
@@ -12,17 +12,17 @@
                 <button type="submit">Найти</button>
             </form>
             <h4 class="mb-3" style="text-align: center;">Жанры</h4>
-            @foreach($genres as $genre)
-                <a class = "list-group-item list-group-item-action" style="color: black;" href="{{route('BooksOfThisGenre',['genre' => $genre->code])}}">
-                    {{$genre->name}}
+            @foreach($types as $type)
+                <a class = "list-group-item list-group-item-action" style="color: black;" href="{{route('ProductsOfThisType',['type' => $type->code])}}">
+                    {{$type->name}}
                 </a>
             @endforeach
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     Авторы</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    @foreach($authors as $author)
-                        <li><a class="dropdown-item" href="{{route('AuthorsBooks',['id'=>$author->id])}}">{{$author->FName}} {{$author->SName}}</a></li>
+                    @foreach($creators as $creator)
+                        <li><a class="dropdown-item" href="{{route('CreatorsProducts',['id'=>$creator->id])}}">{{$creator->FName}} {{$creator->SName}}</a></li>
                     @endforeach
                 </ul>
             </div>

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\editDBRequest;
-use App\Models\Author;
-use App\Models\Book;
-use App\Models\BookUser;
-use App\Models\Genre;
+use App\Models\Creator;
+use App\Models\Product;
+use App\Models\ProductUser;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,51 +15,49 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $books = Book::where('visible', 1)->orderBy('created_at', 'desc')->get();
-        $genres = Genre::orderBy('name')->get();
-        //dd(session());
-        return view('home', compact('books', 'genres'));
-        //redirect()->route('home',compact('books','genres'));
+        $products = Product::where('visible', 1)->orderBy('created_at', 'desc')->get();
+        $types = Type::orderBy('name')->get();
+        return view('home', compact('products', 'types'));
     }
 
     public function search(Request $request)
     {
-        $allBooks = Book::all();
+        $allProducts = Product::all();
         $data = $request->searchLine;
-        $books = Book::where('name', 'LIKE', "%{$data}%")->get();
-        $authors = Author::where('FName', 'LIKE', "%{$data}%")->orWhere('SName', 'LIKE', "%{$data}%")->orderBy('FName')->orderBy('SName')->get();
-        return view('resultSearching', compact('books', 'authors','allBooks'));
+        $products = Product::where('name', 'LIKE', "%{$data}%")->get();
+        $creators = Creator::where('FName', 'LIKE', "%{$data}%")->orWhere('SName', 'LIKE', "%{$data}%")->orderBy('FName')->orderBy('SName')->get();
+        return view('resultSearching', compact('products', 'creators','allProducts'));
     }
 
-    public function book($IdBook)
+    public function product($IdProduct)
     {
-        $book = Book::find($IdBook);
-        return view('oneBook', compact('book'));
+        $product = Product::find($IdProduct);
+        return view('oneProduct', compact('product'));
     }
 
     public function category($code)
     {
-        $genre = null;
-        $genre = Genre::where('code', '=', $code)->first();
-        $genres = Genre::orderBy('name')->get();
-        return view('genre', ['genre' => $genre, 'genres' => $genres]);
+        $type = null;
+        $type = Type::where('code', '=', $code)->first();
+        $types = Type::orderBy('name')->get();
+        return view('type', ['type' => $type, 'types' => $types]);
     }
 
     // Страница автора со всеми его книгами
-    public function author($id)
+    public function creator($id)
     {
-        $author = Author::find($id);
-        $books = Book::where('author_id', $id)->orderBy('created_at', 'desc')->get();
-        return view('author', compact('author', 'books'));
+        $creator = Creator::find($id);
+        $products = Product::where('creator_id', $id)->orderBy('created_at', 'desc')->get();
+        return view('creator', compact('creator', 'products'));
     }
 
     // Страница формы
     public function edit()
     {
-        $authors = Author::all()->sortBy('FName');
-        $genres = Genre::all()->sortBy('name');
+        $creators = Creator::all()->sortBy('FName');
+        $types = Type::all()->sortBy('name');
 
-        return view('editDB', ['genres' => $genres, 'authors' => $authors]);
+        return view('editDB', ['types' => $types, 'creators' => $creators]);
     }
 
     // Скрипт добавление книги
@@ -71,10 +69,10 @@ class HomeController extends Controller
         $nameFile = $request->file('image')->hashName();
 
         //Создание записи
-        $book = Book::create
+        $product = Product::create
         ([
             'name' => $request->name,
-            'author_id' => $request->author,
+            'creator_id' => $request->creator,
             'pubHouse' => $request->pubHouse,
             'visible' => 0,
             'price' => $request->price,
@@ -82,14 +80,14 @@ class HomeController extends Controller
         ]);
 
         //Добавление жанров
-        $genres = $request->genres;
-        if (!is_null($genres)) {
-            foreach ($genres as $genre) {
-                $book->genres()->attach($genre);
+        $types = $request->types;
+        if (!is_null($types)) {
+            foreach ($types as $type) {
+                $product->types()->attach($type);
             }
         }
 
-        if ($book) {
+        if ($product) {
             session()->flash('success', 'Ваша заявка будет рассмотрена!');
         } else {
             session()->flash('warning', 'Возникли какие-то проблемы!');
@@ -98,15 +96,15 @@ class HomeController extends Controller
         return redirect()->route('editDB');
     }
 
-    public function addFavorites($idBook)
+    public function addFavorites($idProduct)
     {
         $user = auth()->user();
-        if ($user->books()->where('status', '=', 'Favorites')->where('book_id', '=', $idBook)->first()) {
+        if ($user->products()->where('status', '=', 'Favorites')->where('product_id', '=', $idProduct)->first()) {
             session()->flash('warning', 'Эта книга уже в избранных!');
         } else {
-            $success = BookUser::create([
+            $success = ProductUser::create([
                 'user_id' => $user->id,
-                'book_id' => $idBook,
+                'product_id' => $idProduct,
                 'status' => 'Favorites',
             ]);
             if ($success) {
@@ -118,11 +116,11 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function removeFromFavorites($idBook)
+    public function removeFromFavorites($idProduct)
     {
         $user = auth()->user();
-        if ($user->books()->where('status', '=', 'Favorites')->where('book_id', '=', $idBook)->first()) {
-            $success = BookUser::where('status', '=', 'Favorites')->where('book_id', '=', $idBook)->delete();
+        if ($user->products()->where('status', '=', 'Favorites')->where('product_id', '=', $idProduct)->first()) {
+            $success = ProductUser::where('status', '=', 'Favorites')->where('product_id', '=', $idProduct)->delete();
             if ($success) {
                 session()->flash('success', 'Книга была удалена из избранных!');
             } else {

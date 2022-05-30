@@ -18,22 +18,22 @@
                 </thead>
                 <tbody>
                 @if($order)
-                    @foreach($order->books as $book)
+                    @foreach($order->products as $product)
                         <tr>
-                            <td><img width="125px" height="175px" src="{{asset('storage/books/'.$book->image)}}" alt=""></td>
+                            <td><img width="125px" height="175px" src="{{asset('storage/products/'.$product->image)}}" alt=""></td>
                             <td><a style="text-decoration: none;"
-                                   href="{{route('book',[$book->id])}}">{{$book->name}}</a></td>
+                                   href="{{route('product',[$product->id])}}">{{$product->name}}</a></td>
                             <td>
                                 <nobr class=""><span
-                                        class="badge badge-secondary bg-dark">{{$book->pivot->count}}</span></nobr>
+                                        class="badge badge-secondary bg-dark">{{$product->pivot->count}}</span></nobr>
                                 <div class="btn-group form-inline">
-                                    <form action="{{route('basket-remove', $book)}}" method="POST">
+                                    <form action="{{route('basket-remove', $product)}}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">
                                             <span class="glyphicon glyphicon-minus" aria-hidden="true">-</span>
                                         </button>
                                     </form>
-                                    <form action="{{route('basket-add',$book)}}" method="POST">
+                                    <form action="{{route('basket-add',$product)}}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-success">
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true">+</span>
@@ -41,8 +41,8 @@
                                     </form>
                                 </div>
                             </td>
-                            <td>{{$book->price}} руб</td>
-                            <td>{{$book->getPriceForCount()}} руб</td>
+                            <td>{{$product->price}} руб</td>
+                            <td>{{$product->getPriceForCount()}} руб</td>
                         </tr>
                     @endforeach
                 @endif

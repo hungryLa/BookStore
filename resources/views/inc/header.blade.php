@@ -1,19 +1,19 @@
 <?php
 
-use App\Models\Author;
-use App\Models\Genre;
+use App\Models\Creator;
+use App\Models\Type;
 
 if (auth()->user()) {
     $nameOfUser = auth()->user()->name;
 };
-$genres = Genre::orderBy('name')->get();
-$authors = Author::orderBy('FName')->orderBy('SName')->get();
+$types = Type::orderBy('name')->get();
+$creators = Creator::orderBy('FName')->orderBy('SName')->get();
 ?>
 
 <header class="site-header sticky-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{route('home')}}">BookStore</a>
+            <a class="navbar-brand" href="{{route('home')}}">IStore</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -28,11 +28,11 @@ $authors = Author::orderBy('FName')->orderBy('SName')->get();
                             Авторы
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            @foreach($authors as $author)
+                            @foreach($creators as $creator)
                                 <li>
                                     <a class="dropdown-item"
-                                       href="{{route('AuthorsBooks',['id'=>$author->id])}}">
-                                        {{$author->FName}} {{$author->SName}}
+                                       href="{{route('CreatorsProducts',['id'=>$creator->id])}}">
+                                        {{$creator->FName}} {{$creator->SName}}
                                     </a>
                                 </li>
                             @endforeach
@@ -44,11 +44,11 @@ $authors = Author::orderBy('FName')->orderBy('SName')->get();
                             Жанры
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            @foreach($genres as $genre)
+                            @foreach($types as $type)
                                 <li>
                                     <a class="dropdown-item"
-                                       href="{{route('BooksOfThisGenre',['genre' => $genre->code])}}">
-                                        {{$genre->name}}
+                                       href="{{route('ProductsOfThisType',['type' => $type->code])}}">
+                                        {{$type->name}}
                                     </a>
                                 </li>
                             @endforeach

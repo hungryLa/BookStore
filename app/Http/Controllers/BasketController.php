@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\BookOrder;
+use App\Models\Product;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,9 +58,9 @@ class BasketController extends Controller
         $orderId = session('orderId');
         $order = Order::find($orderId);
         // Уменьшаем кол-во книг в наличии
-        foreach($order->books()->get() as $book){
-            $book->in_stock = $book->in_stock - $book->pivot->count;
-            $book->update();
+        foreach($order->products()->get() as $product){
+            $product->in_stock = $product->in_stock - $product->pivot->count;
+            $product->update();
         }
         $success = $order->saveOrder($request->name,$request->phone);
 
@@ -74,7 +73,7 @@ class BasketController extends Controller
         return redirect()->route('home');
     }
 
-    public function basketAdd($bookId)
+    public function basketAdd($productId)
     {
         $orderId = session('orderId');
         if (is_null($orderId)) {
@@ -83,12 +82,12 @@ class BasketController extends Controller
         } else {
             $order = Order::find($orderId);
         }
-        if($order->books->contains($bookId)){
-            $pivotRow = $order->books()->where('book_id', $bookId)->first()->pivot;
+        if($order->products->contains($productId)){
+            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
             $pivotRow->count++;
             $pivotRow->update();
         } else {
-            $order->books()->attach($bookId);
+            $order->products()->attach($productId);
         }
 
         if (Auth::check()) {
@@ -99,7 +98,7 @@ class BasketController extends Controller
         return redirect()->route('basket');
     }
 
-    public function basketRemove($bookId)
+    public function basketRemove($productId)
     {
         $orderId = session('orderId');
         $order = Order::find($orderId);
@@ -107,10 +106,10 @@ class BasketController extends Controller
             return redirect()->route('basket');
         }
 
-        if ($order->books->contains($bookId)) {
-            $pivotRow = $order->books()->where('book_id', $bookId)->first()->pivot;
+        if ($order->products->contains($productId)) {
+            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
             if ($pivotRow->count < 2) {
-                $order->books()->detach($bookId);
+                $order->products()->detach($productId);
             } else {
                 $pivotRow->count--;
                 $pivotRow->update();

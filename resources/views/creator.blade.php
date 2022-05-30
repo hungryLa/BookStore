@@ -1,11 +1,11 @@
-@extends("cabinet.app")
+@extends("layouts.app")
 
 @section("title")
-    Избранные
+    Произведения {{$creator->FName}} {{$creator->SName}}
 @endsection
 
 @section('content')
-    <h2 class="mb-4">Избранные</h2>
+    <h2 style="text-align: center;" class="mb-4">{{$creator->FName}} {{$creator->SName}}</h2>
 
     <div class="row">
         @foreach($products as $product)
@@ -16,6 +16,3 @@
     </div>
 @endsection
 
-@section('aside')
-    @include('cabinet.inc.aside')
-@endsection

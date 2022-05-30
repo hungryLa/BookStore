@@ -27,8 +27,8 @@ class OrderController extends Controller
     public function order($id){
         $user = auth()->user();
         $order = Order::where('id','=',$id)->first();
-        $books = $order->books;
-        return view('admin/orders/order',compact('order','books'));
+        $products = $order->products;
+        return view('admin/orders/order',compact('order','products'));
     }
 
     public function check($IdOrder){
@@ -54,9 +54,9 @@ class OrderController extends Controller
     public function delete($IdOrder)
     {
         $order = Order::find($IdOrder);
-        foreach ($order->books()->get() as $book){
-            $book->in_stock = $book->in_stock + $book->pivot->count;
-            $book->update();
+        foreach ($order->products()->get() as $product){
+            $product->in_stock = $product->in_stock + $product->pivot->count;
+            $product->update();
         }
         $order->delete();
         session()->flash('success','Заказ был удален!');

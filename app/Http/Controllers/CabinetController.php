@@ -18,12 +18,12 @@ class CabinetController extends Controller
     {
         $user = auth()->user();
         if ($user) {
-            $books = $user->books()->where('status', '=', 'Favorites')->get();
+            $products = $user->products()->where('status', '=', 'Favorites')->get();
         } else {
             session()->flash('warning', 'Вы не авторизовались!');
             return redirect()->route('home');
         }
-        return view('cabinet/favorites', compact('books'));
+        return view('cabinet/favorites', compact('products'));
     }
 
     public function index()
@@ -90,7 +90,7 @@ class CabinetController extends Controller
     public function order($id){
         $user = auth()->user();
         $order = Order::where('id','=',$id)->first();
-        $books = $order->books;
-        return view('cabinet/order',compact('order','books'));
+        $products = $order->products;
+        return view('cabinet/order',compact('order','products'));
     }
 }

@@ -12,7 +12,7 @@ class ResetController extends Controller
 
         Artisan::call('migrate:fresh --seed');
 
-        $folder = 'books';
+        $folder = 'product';
         Storage::deleteDirectory($folder);
         Storage::makeDirectory($folder);
 
