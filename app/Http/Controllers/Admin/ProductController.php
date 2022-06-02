@@ -129,7 +129,7 @@ class ProductController extends Controller
     public function deleteCover($IdProduct)
     {
         $product = Product::find($IdProduct);
-        if ($product->image != 'null') {
+        if (($product->image != 'null') && ($product->image != null)) {
             $file_path = public_path() . "/storage/products/" . $product->image;
             unlink($file_path);
             $product->image = 'null';
@@ -140,6 +140,7 @@ class ProductController extends Controller
     public function deleteProduct($IdProduct): \Illuminate\Http\RedirectResponse
     {
         $product = Product::find($IdProduct);
+        $product->deleteTypes();
         $this->deleteCover($IdProduct);
         $product->delete();
         session()->flash('success','Книга была удалена!');
@@ -159,7 +160,11 @@ class ProductController extends Controller
         return Excel::download(new ProductsExport, 'Products.xlsx');
     }
     public function import(FileRequest $request){
+        $last = Product::orderBy('id','Desc')->first();
         Excel::import(new ProductsImport(), $request->file('files'));
+        $newProdudcts = Product::where('id','>', $last->id)->get();
+        foreach ($newProdudcts as $product)
+            $product->addTypes(',');
         return redirect()->back()->with('success', 'Экспорт прошёл успешно!');
     }
 }

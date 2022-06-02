@@ -17,11 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('creator_id');
-            $table->string('image')->default('null');
+            $table->string('image')->default('null')->nullable();
             $table->string('producer');
             $table->integer('price')->default(0);
             $table->boolean('visible')->default(0);
             $table->integer('in_stock')->default(0);
+            $table->string('string_types')->default('null');
             $table->timestamps();
         });
     }

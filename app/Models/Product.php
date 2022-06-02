@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -17,6 +18,7 @@ class Product extends Model
         'image',
         'price',
         'in_stock',
+        'string_types',
     ];
 
 //Обратное отношение один ко многим (у книги 1 автор)
@@ -52,4 +54,17 @@ class Product extends Model
         return $this->price;
     }
 
+    public function addTypes( string $separator){
+        $array_types = explode($separator, $this->string_types);
+        for ($i = 0; $i < count($array_types);$i++){
+            $object = Type::where('name','like', $array_types[$i])->first();
+            if($object)
+                $this->types()->attach($object);
+        }
+    }
+    public function deleteTypes(){
+        if(count($this->types) != 0){
+            ProductType::where('product_id','=',$this->id)->delete();
+        }
+    }
 }
