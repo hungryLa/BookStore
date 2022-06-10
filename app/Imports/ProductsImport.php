@@ -17,12 +17,11 @@ class ProductsImport implements ToModel
         $product = new Product([
             'name'  => $row[0],
             'creator_id'    => $row[1],
-            'image'    => $row[2],
-            'producer'  => $row[3],
-            'price' => $row[4],
-            'visible'   => $row[5],
-            'in_stock'  => $row[6],
-            'string_types'  => $row[7],
+            'producer'  => $row[2],
+            'price' => $row[3],
+            'visible'   => $row[4],
+            'in_stock'  => $row[5],
+            'string_types'  => $row[6],
         ]);
         return $product;
     }

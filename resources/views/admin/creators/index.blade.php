@@ -34,6 +34,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Управление</th>
@@ -42,6 +43,7 @@
             <tbody>
             @foreach($creators as $creator)
                 <tr>
+                    <td>{{$creator->id}}</td>
                     <td>{{$creator->FName}}</td>
                     <td>{{$creator->SName}}</td>
                     <td>

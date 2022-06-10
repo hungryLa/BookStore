@@ -18,11 +18,12 @@ class ProductTableSeeder extends Seeder
             [
                 'name' => 'На западном фронте без перемен',
                 'creator_id' => 1,
-                'image' => '0rpMMoDQcZxoKvozjUc59Ueye2X8T9eoMPwmClMV.jpg',
+                'image' => '4bZ0VysBSg2aIZpYtMFlHiJlhjVmqEuECh0uM8qF.jpg',
                 'producer' => 'Эксклюзивная классика',
                 'price' => 189,
                 'visible' => 1,
                 'in_stock' => 100,
+                'string_types' => 'Роман',
             ],
             [
                 'name' => 'Три товарища',
@@ -32,6 +33,7 @@ class ProductTableSeeder extends Seeder
                 'price' => 229,
                 'visible' => 1,
                 'in_stock' => 100,
+                'string_types' => 'Роман',
             ],
             [
                 'name' => 'Возлюби ближнего своего',
@@ -41,6 +43,7 @@ class ProductTableSeeder extends Seeder
                 'price' => 250,
                 'visible' => 1,
                 'in_stock' => 90,
+                'string_types' => 'Роман',
             ],
             [
                 'name' => 'Ночь в Лиссабоне',
@@ -50,6 +53,7 @@ class ProductTableSeeder extends Seeder
                 'price' => 219,
                 'visible' => 1,
                 'in_stock' => 80,
+                'string_types' => 'Роман',
             ],
             [
                 'name' => 'Жизнь взаймы',
@@ -59,6 +63,7 @@ class ProductTableSeeder extends Seeder
                 'price' => 220,
                 'visible' => 1,
                 'in_stock' => 80,
+                'string_types' => 'Роман,Художественный вымысел',
             ],
             [
                 'name' => 'Драма на охоте',
@@ -68,6 +73,7 @@ class ProductTableSeeder extends Seeder
                 'price' => 125,
                 'visible' => 1,
                 'in_stock' => 50,
+                'string_types' => 'Повесть',
             ],
             [
                 'name' => 'Вишневый сад',
@@ -77,6 +83,7 @@ class ProductTableSeeder extends Seeder
                 'price' => 100,
                 'visible' => 1,
                 'in_stock' => 50,
+                'string_types' => 'Комедия',
             ],
         ]);
     }

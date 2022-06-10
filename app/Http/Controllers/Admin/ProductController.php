@@ -109,7 +109,7 @@ class ProductController extends Controller
             if($req->file('image')){
                 $this->deleteCover($product->id);
                 //Сохраняем новую
-                $req->file('image')->store('public/products/');
+                $req->file('image')->store('products/');
                 $nameFile = $req->file('image')->hashName();
                 //Изменяем имя файла в записи книги
                 $product->image = $nameFile;

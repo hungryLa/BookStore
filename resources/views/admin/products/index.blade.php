@@ -26,7 +26,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="files" class="form-label"><h4>Импорт файл</h4></label>
-                    <p>Последовательность: Название продукта | Id создателя | Название обложки | Производитель | Цена | Видимость | Кол-во | Жанры(через запятую)</p>
+                    <p>Последовательность: Название продукта | Id создателя | Производитель | Цена | Видимость | Кол-во | Виды(через запятую)</p>
                     <input type="file" class="form-control" name="files" id="files">
                 </div>
                 <input type="submit" class="btn btn-success" value="Импортировать">

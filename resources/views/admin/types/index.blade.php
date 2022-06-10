@@ -5,7 +5,7 @@
     <h1>Виды</h1>
 
     <div class="row">
-        <a href='{{route('type.addForm')}}' class="btn btn-success w-auto col-1">Добавить создателя</a>
+        <a href='{{route('type.addForm')}}' class="btn btn-success w-auto col-1">Добавить вид</a>
         <div class="dropdown col-2 test">
             <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                      data-bs-toggle="dropdown" aria-expanded="false">

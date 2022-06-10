@@ -21,6 +21,7 @@ class TypeTableSeeder extends Seeder
             ['name'=>'Военная проза','code'=>'military_prose'],
             ['name'=>'Комедия','code'=>'comedy'],
             ['name'=>'Художественный вымысел','code'=>'fiction'],
+            ['name'=>'Повесть','code'=>'store'],
         ]);
     }
 }

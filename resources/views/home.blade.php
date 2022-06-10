@@ -16,6 +16,3 @@
     </div>
 @endsection
 
-@section('asside')
-    @include('inc.aside')
-@endsection
