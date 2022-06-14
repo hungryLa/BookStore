@@ -46,7 +46,7 @@ class CabinetController extends Controller
         $valideted = validator($request->all(),[
             'name' => ['required'],
             'phone' => ['required','string'],
-            'email' => ['required','string','email','unique:users']
+            'email' => ['required','string','email']
         ])->validate();
 
         $user = auth()->user();
