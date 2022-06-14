@@ -22,6 +22,8 @@ class TypeTableSeeder extends Seeder
             ['name'=>'Комедия','code'=>'comedy'],
             ['name'=>'Художественный вымысел','code'=>'fiction'],
             ['name'=>'Повесть','code'=>'store'],
+            ['name'=>'Научная фантастика','code'=>'science_fiction'],
+            ['name'=>'Рассказ','code'=>'story'],
         ]);
     }
 }
