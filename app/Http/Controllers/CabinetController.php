@@ -45,11 +45,13 @@ class CabinetController extends Controller
     {
         $valideted = validator($request->all(),[
             'name' => ['required'],
+            'phone' => ['required','string'],
             'email' => ['required','string','email','unique:users']
         ])->validate();
 
         $user = auth()->user();
         $user->name = $request->name;
+        $user->phone = $request->phone;
         $user->email = $request->email;
         $success = $user->update();
         if ($success) {
